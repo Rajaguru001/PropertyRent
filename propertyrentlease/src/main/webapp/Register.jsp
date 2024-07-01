@@ -150,9 +150,7 @@
 
 <div class="container">
     <h1>Sign Up</h1>
-    <form action="/Register" method="post">
-    <input type="hidden" name="action" value="Register">	
-    <input type="hidden" name="Register">
+   <form action="/Registeruser" method="post">
         <hr>
         <table>
        

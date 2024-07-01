@@ -7,5 +7,7 @@ import com.chaisys.propertyrentlease.model.Users;
 @Repository
 public interface PropertyRentLeaseDAO {
    public  boolean insert(Users users);
+   public Users  getUserIdByEmail(Users User);
+   public Users adminlogincheck(Users user);
 
 }
