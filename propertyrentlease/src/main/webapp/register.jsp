@@ -150,7 +150,7 @@
 
 <div class="container">
     <h1>Sign Up</h1>
-   <form action="/Registeruser" method="post">
+   <form action="/registeruser" method="post">
         <hr>
         <table>
        

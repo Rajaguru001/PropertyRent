@@ -163,7 +163,7 @@ footer {
 
 	<div class="container">
 		<h1>Login Page</h1>
-		<form action="/Login" method="post">
+		<form action="/login" method="post">
 			<input type="hidden" name="action" value="Login"> <input
 				type="hidden" name="Login">
 			<hr>

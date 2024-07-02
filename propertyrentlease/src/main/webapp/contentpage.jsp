@@ -249,12 +249,11 @@
         </div>
 
         <div class="login-signup">
-            <a href="Login.jsp">Login</a> <a href="Register.jsp">Signup</a>
+            <a href="login.jsp">Login</a> <a href="register.jsp">Signup</a>
         </div>
 
        <div class="post-property-button"> 
-    <form action="PropertyRentLogin" method="get">
-        <input type="hidden" name="action" value="PostProperty">
+    <form action="/postproperty" method="post">
         <button type="submit">Post Property</button>
     </form>
     </div> 

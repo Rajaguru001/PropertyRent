@@ -4,26 +4,26 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class Users {
-	private int userid;
-	private String username;
+	private int userId;
+	private String userName;
 	private String password;
 	private String email;
-	private String phonenumber;
+	private String phoneNumber;
 
 	public int getUserid() {
-		return userid;
+		return userId;
 	}
 
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public void setUserid(int userId) {
+		this.userId = userId;
 	}
 
 	public String getUsername() {
-		return username;
+		return userName;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUsername(String userName) {
+		this.userName = userName;
 	}
 
 	public String getPassword() {
@@ -43,11 +43,11 @@ public class Users {
 	}
 
 	public String getPhonenumber() {
-		return phonenumber;
+		return phoneNumber;
 	}
 
-	public void setPhonenumber(String phonenumber) {
-		this.phonenumber = phonenumber;
+	public void setPhonenumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public Users() {

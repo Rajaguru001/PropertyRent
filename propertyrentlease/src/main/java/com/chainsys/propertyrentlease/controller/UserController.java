@@ -1,8 +1,8 @@
 package com.chainsys.propertyrentlease.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.sql.SQLException;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,15 +24,15 @@ public class UserController {
 
 	@RequestMapping("/")
 	public String home() {
-		return "ContentPage.jsp";
+		return "contentpage.jsp";
 	}
 
-	@RequestMapping("/Register")
+	@RequestMapping("/register")
 	public String registerpage() {
-		return "Register.jsp";
+		return "register.jsp";
 	}
 
-	@PostMapping("/Registeruser")
+	@PostMapping("/registeruser")
 	public String register(@RequestParam("name") String name, @RequestParam("password") String password,
 			@RequestParam("email") String email, @RequestParam("phonenumber") String phonenumber,
 			RedirectAttributes redirectAttributes) {
@@ -42,35 +42,60 @@ public class UserController {
 		users.setEmail(email);
 		users.setPhonenumber(phonenumber);
 		if (propertyimpl.insert(users)) {
-			return "Login.jsp";
+			return "login.jsp";
 		} else {
 			redirectAttributes.addFlashAttribute("alert", "You already have an account.");
 			return "redirect:/Login.jsp";
 		}
 	}
 
-	@PostMapping("/Login")
+	@PostMapping("/login")
 	public String login(HttpSession session, @RequestParam("email") String email,
-			@RequestParam("password") String password) {
+			@RequestParam("password") String password, RedirectAttributes redirectAttributes) {
 		Users user = new Users();
 		user.setEmail(email);
 		user.setPassword(password);
 		Users users = propertyimpl.getUserIdByEmail(user);
-		session.setAttribute("email", users);
-		Users adminlogincheck = propertyimpl.adminlogincheck(users);
-		if (adminlogincheck != null) {
-			if (user.getEmail().matches("\\b[A-Za-z0-9._%+-]+@eliterental\\.com\\b")
-					&& user.getPassword().matches("Raju@123")) {
-				return "AdminDashBoard.jsp";
-			} else {
-				return "ContentPage.jsp";
-			}
-
-		} else {
-
-			return "RegisterPage.jsp";
+		if (users == null) {
+			redirectAttributes.addFlashAttribute("error", "Invalid email or password.");
+			return "redirect:/register.jsp";
 		}
 
-	}
+		session.setAttribute("user", users);
 
+		Users adminLoginCheck = propertyimpl.adminlogincheck(users);
+		if (adminLoginCheck != null) {
+			if (user.getEmail().matches("\\b[A-Za-z0-9._%+-]+@eliterental\\.com\\b")
+					&& user.getPassword().matches("Raju@123")) {
+				return "admindashboard.jsp";
+			} else {
+				return "contentpage.jsp";
+			}
+		} else {
+			return "register.jsp";
+		}
+		
+	
+	}
+	
+	@PostMapping("/postproperty")
+	 public String postProperty(HttpSession session, RedirectAttributes redirectAttributes) {
+	        Users loggedInUser = (Users) session.getAttribute("user");
+	        if (loggedInUser == null) {
+	            redirectAttributes.addFlashAttribute("error", "Please log in to post a property.");
+	            return "login.jsp";
+	        }
+
+	        try {
+	            Users ownerId = propertyimpl.loggerInUser(loggedInUser);
+	            if (ownerId != null) {
+	                return "sellerdashboard.jsp";
+	            } else {
+	                return "postproperty.jsp";
+	            }
+	        } catch (Exception e) {
+	            redirectAttributes.addFlashAttribute("error", "Failed to check seller status.");
+	            return "contentpage.jsp";
+	        }
+	    }
 }
