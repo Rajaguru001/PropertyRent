@@ -63,10 +63,10 @@ public class PropertyRentLeaseImpl implements PropertyRentLeaseDAO {
 
 	}
 
-	@Override
-	public Users loggerInUser(Users user) {
+	
+	public  SellerPropertyForm loggerInUser(Users user) {
 		String query="select * from property_details WHERE owner_id=?";
-		Users users=jdbcTemplate.queryForObject(query, new UserMapper(),new Object[] {user.getUserid()});
+		SellerPropertyForm users=jdbcTemplate.queryForObject(query, new SellerPropertyFormMapper(),new Object[] {user.getUserid()});
 		if(users == null) {
 		return null;
 		}else {

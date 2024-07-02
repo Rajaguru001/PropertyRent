@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.chainsys.propertyrentlease.dao.PropertyRentLeaseImpl;
+import com.chaisys.propertyrentlease.model.SellerPropertyForm;
 import com.chaisys.propertyrentlease.model.Users;
 
 import jakarta.servlet.http.HttpSession;
@@ -81,21 +82,14 @@ public class UserController {
 	@PostMapping("/postproperty")
 	 public String postProperty(HttpSession session, RedirectAttributes redirectAttributes) {
 	        Users loggedInUser = (Users) session.getAttribute("user");
+	       
 	        if (loggedInUser == null) {
 	            redirectAttributes.addFlashAttribute("error", "Please log in to post a property.");
 	            return "login.jsp";
 	        }
 
-	        try {
-	            Users ownerId = propertyimpl.loggerInUser(loggedInUser);
-	            if (ownerId != null) {
-	                return "sellerdashboard.jsp";
-	            } else {
-	                return "postproperty.jsp";
-	            }
-	        } catch (Exception e) {
-	            redirectAttributes.addFlashAttribute("error", "Failed to check seller status.");
-	            return "contentpage.jsp";
-	        }
+	     
+	          return "postproperty.jsp";
+	   
 	    }
 }

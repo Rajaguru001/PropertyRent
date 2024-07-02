@@ -254,6 +254,7 @@
 
        <div class="post-property-button"> 
     <form action="/postproperty" method="post">
+    
         <button type="submit">Post Property</button>
     </form>
     </div> 
