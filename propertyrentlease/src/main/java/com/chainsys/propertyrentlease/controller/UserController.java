@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.chainsys.propertyrentlease.dao.PropertyRentLeaseImpl;
-import com.chaisys.propertyrentlease.model.SellerPropertyForm;
-import com.chaisys.propertyrentlease.model.Users;
+import com.chainsys.propertyrentlease.model.SellerPropertyForm;
+import com.chainsys.propertyrentlease.model.Users;
 
 import jakarta.servlet.http.HttpSession;
 

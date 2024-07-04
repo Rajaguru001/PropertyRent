@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.chaisys.propertyrentlease.model.Users" %>	
+<%@ page import="com.chainsys.propertyrentlease.model.Users" %>	
 <!DOCTYPE html>
 <html lang="eng">
 <head>
@@ -120,7 +120,7 @@
 
 <div class="container">
     <h2>Property Rent Form</h2>
-    <form id="propertyForm" action="PropertyRentSellerForm" method="post" enctype="multipart/form-data"> 
+    <form id="propertyForm" action="/postpropertydetails" method="post" enctype="multipart/form-data"> 
         <label for="property_type">Property Type:</label>
         <input type="text" id="property_type" name="property_type" required>
         
@@ -161,13 +161,7 @@
 </div>
 
 <script>
-document.getElementById("propertyForm").addEventListener("submit", function(event){
-    event.preventDefault(); 
 
-    alert("Thanks for submission!");
-    
-    this.submit();
-});
 </script>
 
 </body>

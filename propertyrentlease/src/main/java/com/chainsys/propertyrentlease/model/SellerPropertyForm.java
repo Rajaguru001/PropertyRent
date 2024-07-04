@@ -1,4 +1,4 @@
-package com.chaisys.propertyrentlease.model;
+package com.chainsys.propertyrentlease.model;
 
 import java.io.InputStream;
 import java.util.Date;

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.chaisys.propertyrentlease.model.Users;
+import com.chainsys.propertyrentlease.model.Users;
 
 public class UserMapper implements RowMapper<Users> {
 
@@ -17,6 +17,7 @@ public class UserMapper implements RowMapper<Users> {
 		String password = rs.getString("password");
 		String email = rs.getString("email");
 		String phonenumber = rs.getString("phonenumber");
+
 
 		users.setUserid(userid);
 		users.setUsername(username);

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-import com.chaisys.propertyrentlease.model.SellerPropertyForm;
+import com.chainsys.propertyrentlease.model.SellerPropertyForm;
 
 public class SellerPropertyFormMapper implements RowMapper<SellerPropertyForm> {
 

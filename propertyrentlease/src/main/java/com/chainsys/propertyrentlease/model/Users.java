@@ -1,4 +1,4 @@
-package com.chaisys.propertyrentlease.model;
+package com.chainsys.propertyrentlease.model;
 
 import org.springframework.context.annotation.Configuration;
 
@@ -9,6 +9,7 @@ public class Users {
 	private String password;
 	private String email;
 	private String phoneNumber;
+	boolean paymentstatus;
 
 	public int getUserid() {
 		return userId;
@@ -48,6 +49,15 @@ public class Users {
 
 	public void setPhonenumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
+	}
+	
+
+	public boolean isPaymentstatus() {
+		return paymentstatus;
+	}
+
+	public void setPaymentstatus(boolean paymentstatus) {
+		this.paymentstatus = paymentstatus;
 	}
 
 	public Users() {

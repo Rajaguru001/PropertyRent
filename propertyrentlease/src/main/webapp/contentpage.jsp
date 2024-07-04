@@ -233,7 +233,7 @@
                     Buy <i class="fas fa-caret-down"></i>
                 </button>
                 <div class="dropdown-content">
-                    <a href="http://localhost:8080/PropertyRentLease/AdminDashboard">Buy Flat</a> <a href="#">Buy House</a> <a href="http://localhost:8080/PropertyRentLease/AdminDashboard">Buy
+                    <a href="/buyerview">Buy Flat</a> <a href="#">Buy House</a> <a href="http://localhost:8080/PropertyRentLease/AdminDashboard">Buy
                         PG Hostel</a>
                 </div>
             </div>
