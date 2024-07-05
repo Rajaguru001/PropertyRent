@@ -3,6 +3,7 @@ package com.chainsys.propertyrentlease.model;
 public class Comment {
 	private int userid;
 	private int commentid;
+	private String usercomment;
 	private String commentsection;
 	private int propertyid;
 	public Comment(){
@@ -32,10 +33,17 @@ public class Comment {
 	public void setPropertyid(int propertyid) {
 		this.propertyid = propertyid;
 	}
+	
+	public String getUsercomment() {
+		return usercomment;
+	}
+	public void setUsercomment(String usercomment) {
+		this.usercomment = usercomment;
+	}
 	@Override
 	public String toString() {
-		return "Comments [user_id=" + userid + ", comment_id=" + commentid + ", comment_section=" + commentsection
-				+ ", property_id=" + propertyid + "]";
+		return "Comment [userid=" + userid + ", commentid=" + commentid + ", usercomment=" + usercomment
+				+ ", commentsection=" + commentsection + ", propertyid=" + propertyid + "]";
 	}
 	
 

@@ -15,11 +15,13 @@ import com.chainsys.propertyrentlease.mapper.SellerPropertyFormMapper;
 import com.chainsys.propertyrentlease.mapper.UserMapper;
 import com.chainsys.propertyrentlease.model.Comment;
 import com.chainsys.propertyrentlease.model.PropertyImage;
+import com.chainsys.propertyrentlease.model.SellerDashBoard;
 import com.chainsys.propertyrentlease.model.SellerProperty;
 import com.chainsys.propertyrentlease.model.SellerPropertyForm;
 import com.chainsys.propertyrentlease.model.Users;
 import com.chainsys.propertyrentlease.mapper.PropertyImageMapper;
 import com.chainsys.propertyrentlease.mapper.CommentMapper;
+import com.chainsys.propertyrentlease.mapper.SellerDashBoardMapper;
 
 @Repository
 public class PropertyRentLeaseImpl implements PropertyRentLeaseDAO {
@@ -152,8 +154,37 @@ public class PropertyRentLeaseImpl implements PropertyRentLeaseDAO {
 
 	@Override
 	public List<Comment> getcomment(int propertyid) {
-		String query="select c.user_id,c.comment_section, u.user_name ,c.property_id from comments as c join users u on c.user_id=u.user_id where property_id=?";
-		 return jdbcTemplate.query(query, new Object[]{propertyid}, new CommentMapper());
+		
+		String query="select c.user_id as user_id,c.comment_section, u.user_name as user_name,c.property_id from comments as c join users u on c.user_id=u.user_id where property_id=?";
+		return jdbcTemplate.query(query, new CommentMapper(), propertyid);
 	}
+
+	@Override
+	public List<SellerPropertyForm> searchApprovedProperties(String location, int budget) {
+		String query = "SELECT * FROM property_details WHERE is_approval = true AND location = ? AND rent <= ?";
+		return jdbcTemplate.query(query,new SellerPropertyFormMapper(),location,budget);
+		
+	}
+
+	@Override
+	public String owneremailid(int sellerid) {
+		String query="select email from users where user_id=? ";
+		   String email = jdbcTemplate.queryForObject(query, String.class, sellerid);
+	        return email;
+	    	}
+
+	@Override
+	public void buyerrequest(int ownersid, int buyersid, int propertesid) {
+		String query="insert into request(owner_id,rent_id,property_id) values(?,?,?)";
+		jdbcTemplate.update(query, ownersid,buyersid,propertesid);
+		
+	}
+
+	@Override
+	public List<SellerDashBoard> sellerdashboard(int buyersid) {
+		 String query = "SELECT * FROM request WHERE owner_id = ?";
+		return jdbcTemplate.query(query, new SellerDashBoardMapper(),buyersid);
+	}
+	
 
 }

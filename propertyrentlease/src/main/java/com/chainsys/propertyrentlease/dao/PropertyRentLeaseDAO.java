@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.chainsys.propertyrentlease.model.Comment;
 import com.chainsys.propertyrentlease.model.PropertyImage;
+import com.chainsys.propertyrentlease.model.SellerDashBoard;
 import com.chainsys.propertyrentlease.model.SellerProperty;
 import com.chainsys.propertyrentlease.model.SellerPropertyForm;
 import com.chainsys.propertyrentlease.model.Users;
@@ -38,5 +39,13 @@ public interface PropertyRentLeaseDAO {
 	public void comment(int userid, String comment, int propertyid);
 	
 	public List<Comment> getcomment(int propertyid);
+	
+	public List<SellerPropertyForm> searchApprovedProperties(String location, int budget);
+	
+    public String owneremailid(int sellerid);
+	 
+	public void buyerrequest(int ownersid, int buyersid, int propertesid);
+	
+	public List<SellerDashBoard> sellerdashboard(int buyersid);
 	
 }

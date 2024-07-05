@@ -16,226 +16,291 @@
 <meta charset="UTF-8">
 <title>Approved Properties</title>
 <style>
-#properties-container {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
-	align-items: flex-start;
-	margin-top: 20px;
-}
+   body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
 
+    #properties-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        align-items: flex-start;
+        margin-top: 20px;
+    }
 
+    .property {
+        width: 1000px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        transition: transform 0.3s ease-in-out;
+    }
 
-.property {
-	width: 1000px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	padding: 20px;
-	margin-bottom: 20px;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+    .property:hover {
+        transform: translateY(-5px);
+    }
 
-.property h2 {
-	margin-top: 0;
-}
+    .property h2 {
+        margin-top: 0;
+    }
 
-.property p {
-	margin: 5px 0;
-}
+    .property p {
+        margin: 5px 0;
+    }
 
-.property img {
-	margin-bottom: 10px;
-}
+    .property img {
+        width: 200px;
+        padding: 20px;
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
 
-.navbar {
-	background-color: #FF204E;
-	overflow: hidden;
-	margin-bottom: 20px;
-}
+    .property img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 
-.navbar a {
-	display: inline-block;
-	color: white;
-	text-align: center;
-	padding: 14px 20px;
-	text-decoration: none;
-}
+    .navbar {
+        background-color: #FF204E;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
 
-.navbar a:hover {
-	background-color: #29252C;
-}
+    .navbar a {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 20px;
+        text-decoration: none;
+    }
 
-.logo {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
+    .navbar a:hover {
+        background-color: #29252C;
+    }
 
-.logo img {
-	max-height: 30px;
-	margin-right: 10px;
-}
+    .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-button[type="submit"] {
-	background-color: #FF204E;
-	color: white;
-	border: none;
-	cursor: pointer;
-	padding: 12px 24px;
-	border-radius: 4px;
-	transition: background-color 0.3s, box-shadow 0.3s;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+    .logo img {
+        max-height: 30px;
+        margin-right: 10px;
+    }
 
-button[type="submit"]:hover {
-	background-color: #FF1654;
-	box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
+    button[type="submit"] {
+        background-color: #FF204E;
+        color: white;
+        border: none;
+        cursor: pointer;
+        padding: 12px 24px;
+        border-radius: 4px;
+        transition: background-color 0.3s, box-shadow 0.3s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-.comment-box {
-	margin-top: 20px;
-	background-color: #f0f2f5;
-	border-radius: 8px;
-	padding: 20px;
-}
+    button[type="submit"]:hover {
+        background-color: #FF1654;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
 
-.comment-box textarea {
-	width: 100%;
-	padding: 10px;
-	margin-bottom: 10px;
-	border: 1px solid #ccc;
-	border-radius: 4px;
-	resize: none;
-	font-family: Arial, sans-serif;
-	font-size: 14px;
-}
+    .comment-box {
+        margin-top: 20px;
+        background-color: #f0f2f5;
+        border-radius: 8px;
+        padding: 20px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
 
-.comment-box textarea:focus {
-	border-color: #FF204E;
-	outline: none;
-	box-shadow: 0 0 5px rgba(255, 32, 78, 0.5);
-}
+    .comment {
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        padding: 10px;
+        margin-bottom: 10px;
+        background-color: #fff;
+    }
 
-.property p {
-	margin: 5px 0;
-	font-family: 'Arial', sans-serif;
-	font-size: 16px;
-	line-height: 1.5;
-	color: #333;
-	text-decoration: none;
-}
+    .comment .user-profile {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        background-color: #ccc;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
 
-.dropdown {
-	position: relative;
-	display: inline-block;
-}
+    .comment .comment-text {
+        display: inline-block;
+        width: calc(100% - 50px);
+        vertical-align: top;
+    }
 
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #f9f9f9;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	z-index: 1;
-}
+    .comment .comment-text p {
+        margin: 5px 0;
+    }
 
-.dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
-}
+    .comment .comment-text small {
+        color: #999;
+    }
 
-.dropdown-content a:hover {
-	background-color: #ddd;
-}
+    .comment-box textarea {
+        width: 80%;
+        padding: 20px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: none;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+    }
 
-.dropdown:hover .dropdown-content {
-	display: block;
-}
+    .comment-box textarea:focus {
+        border-color: #FF204E;
+        outline: none;
+        box-shadow: 0 0 5px rgba(255, 32, 78, 0.5);
+    }
 
-.dropbtn i.fa-caret-down {
-	margin-left: 5px;
-}
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
 
-.content {
-	margin-top: 100px;
-	text-align: center;
-}
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
 
-.search-container {
-	display: inline-block;
-	text-align: center;
-	width: 75%;
-	max-width: 700px;
-	margin: 0 auto;
-	margin-top: 1.5%;
-	margin-left:250px;
-}
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
 
-.search-container form {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: rgba(255, 255, 255, 0.7); 
-	border: 2px solid #FF204E;
-	border-radius: 20px;
-	padding: 20px;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
+    .dropdown-content a:hover {
+        background-color: #ddd;
+    }
 
-.search-container select, .search-container input[type="number"] {
-	border: none;
-	padding: 8px;
-	font-family: 'Roboto', sans-serif;
-	font-size: 16px;
-	outline: none;
-	margin-right: 10px;
-	border-radius: 5px;
-}
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 
-.search-container button {
-	border: none;
-	background-color: #FF204E; 
-	color: white;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-	border-radius: 20px;
-	padding: 8px 20px;
-	font-size: 14px;
-}
+    .dropbtn i.fa-caret-down {
+        margin-left: 5px;
+    }
 
-.search-container button i {
-	color: white; 
-}
+    .content {
+        margin-top: 100px;
+        text-align: center;
+    }
 
-.search-container button:hover {
-	background-color: red; 
-}
+    .search-container {
+        display: inline-block;
+        text-align: center;
+        width: 75%;
+        max-width: 700px;
+        margin: 0 auto;
+        margin-top: 1.5%;
+    }
 
-.search-container .location-icon {
-	color: red;
-	margin-right: 5px;
-}
+    .search-container form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(255, 255, 255, 0.7);
+        border: 2px solid #FF204E;
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
 
+    .search-container select,
+    .search-container input[type="number"] {
+        border: none;
+        padding: 8px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 16px;
+        outline: none;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
 
-.search-container .house-icon {
-	color: red;
-	margin-right: 5px;
-}
+    .search-container button {
+        border: none;
+        background-color: #FF204E;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-size: 14px;
+    }
 
+    .search-container button i {
+        color: white;
+    }
 
-.search-container input[type="number"]::-webkit-inner-spin-button,
-	.search-container input[type="number"]::-webkit-outer-spin-button {
-	-webkit-appearance: none;
-	margin: 0;
-}
+    .search-container button:hover {
+        background-color: red;
+    }
 
-.navbar h6{
-padding:0px;
-margin:0px;
+    .search-container .location-icon {
+        color: red;
+        margin-right: 5px;
+    }
 
-}
+    .search-container .house-icon {
+        color: red;
+        margin-right: 5px;
+    }
+
+    .search-container input[type="number"]::-webkit-inner-spin-button,
+    .search-container input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .marquee {
+        width: 100%;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+
+    .marquee img {
+        width: auto;
+        height: 150px;
+        margin-right: 10px;
+        border-radius: 5px;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    .marquee img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    
+    @media only screen and (max-width: 768px) {
+        .property {
+            width: 100%;
+        }
+    }
 
 </style>
 <script>
@@ -254,7 +319,7 @@ function bookNow() {
 		</h1>
 		<a href="ContentPage.jsp"><h6>Home</h6></a>
 	</div>
-	<form action="buyerview" method="post">
+	<form action="/buyersearchview" method="post">
 	<input type="hidden" name="action" value="search">
 	<input type="hidden" name="search" value="search">
 		<div class="search-container">
@@ -292,9 +357,9 @@ function bookNow() {
         if (approvedProperties != null && !approvedProperties.isEmpty()) {
             for (SellerPropertyForm property : approvedProperties) {
                 List<PropertyImage> propertyImages = propertyLeaseimpl.getPropertyImage((property.getPropertyId()));
-                    List<Comment> comments=propertyLeaseimpl.getcomment(property.getPropertyId());    
+                    List<Comment> comments=propertyLeaseimpl.getcomment(property.getPropertyId());     
     %>
-
+	
 			<div class="property">
 				<p>
 					
@@ -304,7 +369,7 @@ function bookNow() {
 						width="250" height="200"  alt="">
 					<% } %>
 				</p>
-				<p>
+				<p><%= property.getPropertyId() %>
 					Type:
 					<%= property.getPropertyType() %></p>
 				<p>
@@ -330,27 +395,21 @@ function bookNow() {
 				<%
             Users userId=(Users)session.getAttribute("user"); 
         %>
-			   	<p>
-					<% for(Comment comment : comments) { %>
-
-				<p><%=userId.getUsername()%>
-					:<%= comment.getCommentsection() %></p>
-                
-         <%} %>     
+			
 </p>
 				
-      <form id="Propertybuyer" action="PropertyRentBuyer" method="post">
+       <form action="/Propertybuyer"  method="post">
        
         <input type="hidden" value=<%=userId.getUserid()%> name="id">
-        <input type="number" value=<%= property.getPropertyId()%>
+        <input type="hidden" value=<%= property.getPropertyId()%>
 					name="propertyId"> 
          <input type="hidden" value=<%=userId.getEmail() %> name="buyerId">
-          <input type="text" value=<%= property.getOwnerId()%>
+          <input type="hidden" value=<%= property.getOwnerId()%>
 					name="sellerId">
          
         <button type="submit" >Book Now</button>
     
-	</form>
+	</form> 
 	
     <form action="/saveComment" method="post">
     <%
@@ -358,7 +417,7 @@ function bookNow() {
     %>
     
         <input type="hidden" value=<%=userId.getUserid()%> name="id">
-        <input type="text" value=<%= property.getPropertyId()%>
+        <input type="hidden" value=<%= property.getPropertyId()%>
 			name="propertyId">    
         <input type="hidden" value=<%=userId.getUsername()%>
 			name="username">
@@ -368,6 +427,18 @@ function bookNow() {
             <button type="submit" >Comment</button>
         </div>
     </form>
+        	<p>
+        	<p>comments
+					<% for(Comment comment : comments) { %>
+					
+		<div class="comment">
+			
+				<p><%=comment.getUsercomment()%>
+					:<%= comment.getCommentsection() %></p>
+					
+               </div>
+               </p>
+         <%} %>       
    
         
     </div>
