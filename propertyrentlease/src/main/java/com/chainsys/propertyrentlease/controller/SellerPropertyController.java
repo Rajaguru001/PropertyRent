@@ -9,7 +9,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.chainsys.propertyrentlease.dao.PropertyRentLeaseImpl;
 import com.chainsys.propertyrentlease.model.PropertyImage;
-import com.chainsys.propertyrentlease.model.SellerProperty;
 import com.chainsys.propertyrentlease.model.SellerPropertyForm;
 import com.chainsys.propertyrentlease.model.Users;
 

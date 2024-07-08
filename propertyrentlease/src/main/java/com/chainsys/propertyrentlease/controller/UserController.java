@@ -1,7 +1,5 @@
 package com.chainsys.propertyrentlease.controller;
 
-import java.sql.SQLException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.chainsys.propertyrentlease.dao.PropertyRentLeaseImpl;
-import com.chainsys.propertyrentlease.model.SellerPropertyForm;
 import com.chainsys.propertyrentlease.model.Users;
 
 import jakarta.servlet.http.HttpSession;
@@ -19,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 public class UserController {
 
 	private final PropertyRentLeaseImpl propertyimpl;
+
 	@Autowired
 	public UserController(PropertyRentLeaseImpl propertyimpl) {
 		this.propertyimpl = propertyimpl;
@@ -76,21 +74,30 @@ public class UserController {
 		} else {
 			return "register.jsp";
 		}
-		
-	
-	}
-	
-	@PostMapping("/postproperty")
-	 public String postProperty(HttpSession session, RedirectAttributes redirectAttributes) {
-	        Users loggedInUser = (Users) session.getAttribute("user");
-	       
-	        if (loggedInUser == null) {
-	            redirectAttributes.addFlashAttribute("error", "Please log in to post a property.");
-	            return "login.jsp";
-	        }
 
-	     
-	          return "postproperty.jsp";
-	   
-	    }
+	}
+
+	@PostMapping("/postproperty")
+	public String postProperty(HttpSession session, RedirectAttributes redirectAttributes) {
+    Users loggedInUser = (Users) session.getAttribute("user");
+        
+      
+        if (loggedInUser != null) {
+            
+                Users ownerId = propertyimpl.checkseller(loggedInUser);
+
+                if (ownerId != null) {
+                 
+                    return "sellerdashboard.jsp";
+                } else {
+                   
+                    return "postproperty.jsp";
+                }
+          
+        } else {
+            
+            return "login.jsp";
+        }
+    }
+
 }
