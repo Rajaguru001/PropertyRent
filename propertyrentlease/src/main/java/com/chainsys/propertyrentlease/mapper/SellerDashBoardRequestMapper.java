@@ -11,32 +11,26 @@ public class SellerDashBoardRequestMapper implements RowMapper<SellerDashBoardRe
 
 	@Override
 	public SellerDashBoardRequest mapRow(ResultSet rs, int rowNum) throws SQLException {
-		 SellerDashBoardRequest sellerDashBoard = new SellerDashBoardRequest();
-	        
-	        sellerDashBoard.setPropertyId(rs.getInt("property_id"));
-	        sellerDashBoard.setPropertyType(rs.getString("property_type"));
-	        sellerDashBoard.setSqft(rs.getInt("sqft"));
-	        sellerDashBoard.setFurnishing(rs.getString("furnishing"));
-	        sellerDashBoard.setAvailableFrom(rs.getDate("available_from"));
-	        sellerDashBoard.setRent(rs.getInt("rent"));
-	        sellerDashBoard.setAddress(rs.getString("address"));
-	        sellerDashBoard.setPostedOnDate(rs.getDate("posted_on_date"));
-	        sellerDashBoard.setEbBill(rs.getBinaryStream("EB_Bill"));
-	        sellerDashBoard.setOwnerId(rs.getInt("owner_id"));
-	        sellerDashBoard.setRentId(rs.getInt("rent_id"));
-	        sellerDashBoard.setSubscriptionId(rs.getInt("subscription_id"));
-	        sellerDashBoard.setApproval(rs.getBoolean("is_approval"));
-	        sellerDashBoard.setOwnerName(rs.getString("owner_name"));
-	        sellerDashBoard.setOwnerEmail(rs.getString("owner_email"));
-	        sellerDashBoard.setOwnerPhoneNumber(rs.getString("owner_phonenumber"));
-	        sellerDashBoard.setRenterName(rs.getString("renter_name"));
-	        sellerDashBoard.setRenterEmail(rs.getString("renter_email"));
-	        sellerDashBoard.setRenterPhoneNumber(rs.getString("renter_phonenumber"));
-	        sellerDashBoard.setImageId(rs.getInt("image_id"));
-	        sellerDashBoard.setImages(rs.getBytes("images"));
-	       
-	        return sellerDashBoard;
-	        
+		  SellerDashBoardRequest request = new SellerDashBoardRequest();
+	        request.setOwner_id(rs.getInt("owner_id"));
+	        request.setOwner_name(rs.getString("owner_name"));
+	        request.setOwner_email(rs.getString("owner_email"));
+	        request.setOwner_phonenumber(rs.getString("owner_phonenumber"));
+	        request.setRenter_id(rs.getInt("renter_id"));
+	        request.setRenter_name(rs.getString("renter_name"));
+	        request.setRenter_email(rs.getString("renter_email"));
+	        request.setRenter_phonenumber(rs.getString("renter_phonenumber"));
+	        request.setProperty_id(rs.getInt("property_id"));
+	        request.setProperty_type(rs.getString("property_type"));
+	        request.setSqft(rs.getInt("sqft"));
+	        request.setFurnishing(rs.getString("furnishing"));
+	        request.setAvailable_from(rs.getDate("available_from"));
+	        request.setRent(rs.getInt("rent"));
+	        request.setAddress(rs.getString("address"));
+	        request.setPosted_on_date(rs.getDate("posted_on_date"));
+	        request.setEB_Bill(rs.getBytes("EB_Bill"));
+	    
+	        return request;
 	}
 
 }

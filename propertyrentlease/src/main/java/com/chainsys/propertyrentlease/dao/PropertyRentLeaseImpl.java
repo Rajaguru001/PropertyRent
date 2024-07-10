@@ -35,10 +35,10 @@ public class PropertyRentLeaseImpl implements PropertyRentLeaseDAO {
 
 	@Override
 	public boolean insert(Users users) {
-		String query = "SELECT email FROM users WHERE email=?";
+		String query = "SELECT email,password FROM users WHERE email=? and password=?" ;
 		String insert = "INSERT INTO users (user_name, password, email, phonenumber) VALUES (?, ?, ?, ?)";
 
-		boolean emailExists = jdbcTemplate.query(query, new Object[] { users.getEmail() }, (resultSet) -> {
+		boolean emailExists = jdbcTemplate.query(query, new Object[] { users.getEmail(),users.getPassword() }, (resultSet) -> {
 			return resultSet.next();
 		});
 		if (!emailExists) {
@@ -183,19 +183,29 @@ public class PropertyRentLeaseImpl implements PropertyRentLeaseDAO {
 
 	@Override
 	public List<SellerDashBoardRequest> sellerdashboard(int buyersid) {
-		 String query =  "SELECT pd.property_id, pd.property_type, pd.sqft, pd.furnishing, "
-	               + "pd.available_from, pd.rent, pd.address, pd.posted_on_date, pd.EB_Bill, "
-	               + "pd.owner_id, pd.rent_id, pd.subscription_id, pd.is_approval, "
-	               + "u_owner.user_name AS owner_name, u_owner.email AS owner_email, "
-	               + "u_owner.phonenumber AS owner_phonenumber, "
-	               + "u_renter.user_name AS renter_name, u_renter.email AS renter_email, "
-	               + "u_renter.phonenumber AS renter_phonenumber, "
-	               + "pi.image_id, pi.images "
-	               + "FROM property_details AS pd "
-	               + "JOIN users AS u_owner ON pd.owner_id = u_owner.user_id "
-	               + "LEFT JOIN users AS u_renter ON pd.rent_id = u_renter.user_id "
-	               + "LEFT JOIN property_images AS pi ON pd.property_id = pi.property_id "
-	               + "WHERE pd.owner_id = ?";
+		 String query = "SELECT " +
+	                "o.user_id AS owner_id, " +
+	                "o.user_name AS owner_name, " +
+	                "o.email AS owner_email, " +
+	                "o.phonenumber AS owner_phonenumber, " +
+	                "r.user_id AS renter_id, " +
+	                "r.user_name AS renter_name, " +
+	                "r.email AS renter_email, " +
+	                "r.phonenumber AS renter_phonenumber, " +
+	                "pd.property_id, " +
+	                "pd.property_type, " +
+	                "pd.sqft, " +
+	                "pd.furnishing, " +
+	                "pd.available_from, " +
+	                "pd.rent, " +
+	                "pd.address, " +
+	                "pd.posted_on_date, " +
+	                "pd.EB_Bill " +
+	                "FROM request req " +
+	                "JOIN users o ON req.owner_id = o.user_id " +
+	                "JOIN users r ON req.rent_id = r.user_id " +
+	                "JOIN property_details pd ON req.property_id = pd.property_id " +
+	                "WHERE req.owner_id = ? and approval=0";
 		return jdbcTemplate.query(query, new SellerDashBoardRequestMapper(),buyersid);
 	}
 
@@ -227,6 +237,7 @@ public class PropertyRentLeaseImpl implements PropertyRentLeaseDAO {
 		 String query = "SELECT * FROM request WHERE owner_id = ?";
 		return jdbcTemplate.query(query, new SellerDashBoardMapper(),buyersid);
 	}
-		
+
+
 
 }

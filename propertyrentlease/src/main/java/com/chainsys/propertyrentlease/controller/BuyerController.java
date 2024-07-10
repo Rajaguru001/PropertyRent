@@ -33,6 +33,7 @@ public class BuyerController {
 		comments.setUserid(userId);
 		comments.setCommentsection(comment);
 		comments.setPropertyid(propertyId);
+		System.out.println("the userid"+comments.getUserid());
 		
 
 		try {
@@ -66,7 +67,7 @@ public class BuyerController {
 		sellerdashboard.setRentid(userid);
 		sellerdashboard.setOwnerid(sellerid);
 		sellerdashboard.setPropertyid(propertyid);
-		propertyimpl.buyerrequest(userid, sellerid, propertyid);
+		propertyimpl.buyerrequest(sellerid, userid,  propertyid);
 		System.out.println("the sellerdashboard"+sellerdashboard.toString());
 		sellerdashboardrequest =propertyimpl.sellerdashboard(sellerid);
 		model.addAttribute("sellerdashboard"+sellerdashboardrequest);

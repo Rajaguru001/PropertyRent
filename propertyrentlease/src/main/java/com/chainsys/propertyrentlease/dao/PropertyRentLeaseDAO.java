@@ -56,4 +56,6 @@ public interface PropertyRentLeaseDAO {
 	
 	public List <SellerDashBoard> sellerdashboardrequest(int buyersid);
 	
+	
+	
 }

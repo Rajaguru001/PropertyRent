@@ -160,7 +160,8 @@ button.approved {
 			List<SellerDashBoardRequest> sellerdashboard = propertyLeaseimpl.sellerdashboard(userId.getUserid());
 			if (sellerdashboard != null && !sellerdashboard.isEmpty()) {
 				for (SellerDashBoardRequest requests : sellerdashboard) {
-			%>
+			%> 
+			
 
 			<div class="buyer">
 			<img src="images/man.png" alt="Buyer Profile" class="profile-img" >
@@ -172,17 +173,17 @@ button.approved {
 					<%=requests.getRentId()%></p> --%>
 				<p>
 					BuyerName:
-					<%=requests.getRenterName()%></p>
+					<%=requests.getRenter_name()%></p>
 				<p>
 					BuyerEmail:
-					<%=requests.getRenterEmail()%></p>
+					<%=requests.getRenter_email()%></p>
 				<p>
 					BuyerPhonenumber:
-					<%=requests.getRenterPhoneNumber()%></p>
+					<%=requests.getRenter_phonenumber()%></p>
 					<form action="/sellermail" method="post">
 				<input type="text" name="propertyId"
-					value="<%=requests.getPropertyId()%>"> <input type="text"
-					name="rentid" value="<%=requests.getRentId()%>">
+					value="<%=requests.getProperty_id()%>"> <input type="text"
+					name="rentid" value="<%=requests.getRenter_id()%>">
 				<button type="submit" class="approve-button">Approval</button>
 			</form>
 					

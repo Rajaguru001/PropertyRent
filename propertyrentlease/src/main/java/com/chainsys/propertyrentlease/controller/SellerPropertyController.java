@@ -116,6 +116,8 @@ public class SellerPropertyController {
 				+ "\r\n"
 				+ "Best regards, ";
 		emailutil.sendWelcomeEmail(rentmail, subject, body);
+		
+		propertyimpl.buyer(rentid,propertyid);
 		return "sellerdashboard.jsp";
 
 	}

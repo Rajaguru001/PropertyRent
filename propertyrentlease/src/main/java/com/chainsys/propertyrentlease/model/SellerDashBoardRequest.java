@@ -2,51 +2,107 @@ package com.chainsys.propertyrentlease.model;
 
 import java.io.InputStream;
 import java.sql.Date;
+import java.util.Arrays;
 
 public class SellerDashBoardRequest {
-	 private int propertyId;
-	    private String propertyType;
+	 private int owner_id;
+	    private String owner_name;
+	    private String owner_email;
+	    private String owner_phonenumber;
+	    private int renter_id;
+	    private String renter_name;
+	    private String renter_email;
+	    private String renter_phonenumber;
+	    private int property_id;
+	    private String property_type;
 	    private int sqft;
 	    private String furnishing;
-	    private Date availableFrom;
-	    private double rent;
+	    private Date available_from;
+	    private int rent;
 	    private String address;
-	    private Date postedOnDate;
-	    private InputStream ebBill;
-	    private int ownerId;
-	    private int rentId;
-	    private int subscriptionId;
-	    private boolean approval;
-	    private String ownerName;
-	    private String ownerEmail;
-	    private String ownerPhoneNumber;
-	    private String renterName;
-	    private String renterEmail;
-	    private String renterPhoneNumber;
-	    private int imageId;
-	    private byte[] images; // Assuming images are stored as byte array
+	    private Date posted_on_date;
+	    private byte[] EB_Bill; // Assuming EB_Bill is stored as byte[] in the database
+	    // Assuming images are stored as byte[] in the database
 
 	    // Constructors, getters, and setters
-	    // Constructor
-	    public void SellerDashBoard() {
-	        // Default constructor
-	    }
-	    
-	    // Getters and Setters
-	    public int getPropertyId() {
-	        return propertyId;
+	    public int getOwner_id() {
+	        return owner_id;
 	    }
 
-	    public void setPropertyId(int propertyId) {
-	        this.propertyId = propertyId;
+	    public void setOwner_id(int owner_id) {
+	        this.owner_id = owner_id;
 	    }
 
-	    public String getPropertyType() {
-	        return propertyType;
+	    public String getOwner_name() {
+	        return owner_name;
 	    }
 
-	    public void setPropertyType(String propertyType) {
-	        this.propertyType = propertyType;
+	    public void setOwner_name(String owner_name) {
+	        this.owner_name = owner_name;
+	    }
+
+	    public String getOwner_email() {
+	        return owner_email;
+	    }
+
+	    public void setOwner_email(String owner_email) {
+	        this.owner_email = owner_email;
+	    }
+
+	    public String getOwner_phonenumber() {
+	        return owner_phonenumber;
+	    }
+
+	    public void setOwner_phonenumber(String owner_phonenumber) {
+	        this.owner_phonenumber = owner_phonenumber;
+	    }
+
+	    public int getRenter_id() {
+	        return renter_id;
+	    }
+
+	    public void setRenter_id(int renter_id) {
+	        this.renter_id = renter_id;
+	    }
+
+	    public String getRenter_name() {
+	        return renter_name;
+	    }
+
+	    public void setRenter_name(String renter_name) {
+	        this.renter_name = renter_name;
+	    }
+
+	    public String getRenter_email() {
+	        return renter_email;
+	    }
+
+	    public void setRenter_email(String renter_email) {
+	        this.renter_email = renter_email;
+	    }
+
+	    public String getRenter_phonenumber() {
+	        return renter_phonenumber;
+	    }
+
+	    public void setRenter_phonenumber(String renter_phonenumber) {
+	        this.renter_phonenumber = renter_phonenumber;
+	    }
+
+	    public int getProperty_id() {
+	        return property_id;
+	    }
+
+	    public void setProperty_id(int property_id) {
+	        this.property_id = property_id;
+	    }
+
+	    public String getProperty_type() {
+	        return property_type;
+	    }
+
+	    public void setProperty_type(String property_type) {
+	        this.property_type = property_type;
 	    }
 
 	    public int getSqft() {
@@ -65,19 +121,19 @@ public class SellerDashBoardRequest {
 	        this.furnishing = furnishing;
 	    }
 
-	    public Date getAvailableFrom() {
-	        return availableFrom;
+	    public Date getAvailable_from() {
+	        return available_from;
 	    }
 
-	    public void setAvailableFrom(Date availableFrom) {
-	        this.availableFrom = availableFrom;
+	    public void setAvailable_from(Date available_from) {
+	        this.available_from = available_from;
 	    }
 
-	    public double getRent() {
+	    public int getRent() {
 	        return rent;
 	    }
 
-	    public void setRent(double rent) {
+	    public void setRent(int rent) {
 	        this.rent = rent;
 	    }
 
@@ -89,143 +145,33 @@ public class SellerDashBoardRequest {
 	        this.address = address;
 	    }
 
-	    public Date getPostedOnDate() {
-	        return postedOnDate;
+	    public Date getPosted_on_date() {
+	        return posted_on_date;
 	    }
 
-	    public void setPostedOnDate(Date postedOnDate) {
-	        this.postedOnDate = postedOnDate;
+	    public void setPosted_on_date(Date posted_on_date) {
+	        this.posted_on_date = posted_on_date;
 	    }
 
-	    public InputStream isEbBill() {
-	        return ebBill;
+	    public byte[] getEB_Bill() {
+	        return EB_Bill;
 	    }
 
-	    public void setEbBill(InputStream ebBill) {
-	        this.ebBill = ebBill;
+	    public void setEB_Bill(byte[] EB_Bill) {
+	        this.EB_Bill = EB_Bill;
 	    }
 
-	    public int getOwnerId() {
-	        return ownerId;
-	    }
+		@Override
+		public String toString() {
+			return "SellerDashBoardRequest [owner_id=" + owner_id + ", owner_name=" + owner_name + ", owner_email="
+					+ owner_email + ", owner_phonenumber=" + owner_phonenumber + ", renter_id=" + renter_id
+					+ ", renter_name=" + renter_name + ", renter_email=" + renter_email + ", renter_phonenumber="
+					+ renter_phonenumber + ", property_id=" + property_id + ", property_type=" + property_type
+					+ ", sqft=" + sqft + ", furnishing=" + furnishing + ", available_from=" + available_from + ", rent="
+					+ rent + ", address=" + address + ", posted_on_date=" + posted_on_date + ", EB_Bill="
+					+ Arrays.toString(EB_Bill) + "]";
+		}
 
-	    public void setOwnerId(int ownerId) {
-	        this.ownerId = ownerId;
-	    }
-
-	    public int getRentId() {
-	        return rentId;
-	    }
-
-	    public void setRentId(int rentId) {
-	        this.rentId = rentId;
-	    }
-
-	    public int getSubscriptionId() {
-	        return subscriptionId;
-	    }
-
-	    public void setSubscriptionId(int subscriptionId) {
-	        this.subscriptionId = subscriptionId;
-	    }
-
-	    public boolean isApproval() {
-	        return approval;
-	    }
-
-	    public void setApproval(boolean approval) {
-	        this.approval = approval;
-	    }
-
-	    public String getOwnerName() {
-	        return ownerName;
-	    }
-
-	    public void setOwnerName(String ownerName) {
-	        this.ownerName = ownerName;
-	    }
-
-	    public String getOwnerEmail() {
-	        return ownerEmail;
-	    }
-
-	    public void setOwnerEmail(String ownerEmail) {
-	        this.ownerEmail = ownerEmail;
-	    }
-
-	    public String getOwnerPhoneNumber() {
-	        return ownerPhoneNumber;
-	    }
-
-	    public void setOwnerPhoneNumber(String ownerPhoneNumber) {
-	        this.ownerPhoneNumber = ownerPhoneNumber;
-	    }
-
-	    public String getRenterName() {
-	        return renterName;
-	    }
-
-	    public void setRenterName(String renterName) {
-	        this.renterName = renterName;
-	    }
-
-	    public String getRenterEmail() {
-	        return renterEmail;
-	    }
-
-	    public void setRenterEmail(String renterEmail) {
-	        this.renterEmail = renterEmail;
-	    }
-
-	    public String getRenterPhoneNumber() {
-	        return renterPhoneNumber;
-	    }
-
-	    public void setRenterPhoneNumber(String renterPhoneNumber) {
-	        this.renterPhoneNumber = renterPhoneNumber;
-	    }
-
-	    public int getImageId() {
-	        return imageId;
-	    }
-
-	    public void setImageId(int imageId) {
-	        this.imageId = imageId;
-	    }
-
-	    public byte[] getImages() {
-	        return images;
-	    }
-
-	    public void setImages(byte[] images) {
-	        this.images = images;
-	    }
-
-	    // Override toString() method for debugging purposes
-	    @Override
-	    public String toString() {
-	        return "SellerDashBoard{" +
-	                "propertyId=" + propertyId +
-	                ", propertyType='" + propertyType + '\'' +
-	                ", sqft=" + sqft +
-	                ", furnishing='" + furnishing + '\'' +
-	                ", availableFrom=" + availableFrom +
-	                ", rent=" + rent +
-	                ", address='" + address + '\'' +
-	                ", postedOnDate=" + postedOnDate +
-	                ", ebBill=" + ebBill +
-	                ", ownerId=" + ownerId +
-	                ", rentId=" + rentId +
-	                ", subscriptionId=" + subscriptionId +
-	                ", approval=" + approval +
-	                ", ownerName='" + ownerName + '\'' +
-	                ", ownerEmail='" + ownerEmail + '\'' +
-	                ", ownerPhoneNumber='" + ownerPhoneNumber + '\'' +
-	                ", renterName='" + renterName + '\'' +
-	                ", renterEmail='" + renterEmail + '\'' +
-	                ", renterPhoneNumber='" + renterPhoneNumber + '\'' +
-	                ", imageId=" + imageId +
-	                '}';
-	    }
-
+	  
+	    
 }
