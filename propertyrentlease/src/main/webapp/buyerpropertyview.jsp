@@ -400,11 +400,11 @@ function bookNow() {
 				
        <form action="/Propertybuyer"  method="post">
        
-        <input type="hidden" value=<%=userId.getUserid()%> name="id">
-        <input type="hidden" value=<%= property.getPropertyId()%>
+        <input type="text" value=<%=userId.getUserid()%> name="id">
+        <input type="text" value=<%= property.getPropertyId()%>
 					name="propertyId"> 
-         <input type="hidden" value=<%=userId.getEmail() %> name="buyerId">
-          <input type="hidden" value=<%= property.getOwnerId()%>
+         <input type="text" value=<%=userId.getEmail() %> name="buyerId">
+          <input type="text" value=<%= property.getOwnerId()%>
 					name="sellerId">
          
         <button type="submit" >Book Now</button>

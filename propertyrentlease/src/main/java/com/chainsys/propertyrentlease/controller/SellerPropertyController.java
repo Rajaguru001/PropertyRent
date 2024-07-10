@@ -1,4 +1,5 @@
 package com.chainsys.propertyrentlease.controller;
+import com.chainsys.propertyrentlease.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,9 @@ public class SellerPropertyController {
 
 	@Autowired
 	PropertyRentLeaseImpl propertyimpl;
+	
+	@Autowired
+	EmailUtility emailutil;
 
 	@PostMapping("/postpropertydetails")
 	public String propertydetails(@RequestParam("property_type") String propertyType, @RequestParam("sqft") int sqft,
@@ -83,19 +87,37 @@ public class SellerPropertyController {
 	}
 
 	@PostMapping("/subscription")
-	public String payment(@RequestParam("id")int ownerId,@RequestParam("userID") String userID, @RequestParam("cardNumber") String cardNumber,
-			@RequestParam("expiry") String expiry, @RequestParam("cvv") String cvv,
-			@RequestParam("status") boolean status) {
-		Users users=new Users();
-		
+	public String payment(@RequestParam("id") int ownerId, @RequestParam("userID") String userID,
+			@RequestParam("cardNumber") String cardNumber, @RequestParam("expiry") String expiry,
+			@RequestParam("cvv") String cvv, @RequestParam("status") boolean status) {
+		Users users = new Users();
+
 		users.setPaymentstatus(status);
 		users.setUserid(ownerId);
-		
-		
-		
-		
-		
+
 		return "contentpage.jsp";
+	}
+
+	@PostMapping("/sellermail")
+	public String sellermail(@RequestParam("propertyId") int propertyid, @RequestParam("rentid") int rentid) {
+		propertyimpl.sellermail(propertyid);
+		String rentmail = propertyimpl.owneremailid(rentid);
+		System.out.println("the email is"+rentmail);
+		String subject=" Important Notice: Regarding Your Recent Inquiry on Elite Rentals";
+		String body="Thank you for your interest in Elite Rentals. We appreciate your inquiry and are delighted to assist you in finding the perfect rental solution. However, we want to ensure that your experience is safe and secure.\r\n"
+				+ "\r\n"
+				+ "It has come to our attention that some users may be encountering fraudulent activities online. Therefore, we would like to emphasize the importance of caution when conducting transactions. Elite Rentals does not endorse or facilitate online payments for rental transactions. We strongly advise against sending money online to any party claiming to be associated with us.\r\n"
+				+ "\r\n"
+				+ "For your safety and security, we recommend connecting directly with the seller for further discussions and arrangements. Direct meetings provide an opportunity for clear communication and transparency, ensuring a smooth rental process.\r\n"
+				+ "\r\n"
+				+ "Should you require any assistance or have further questions, please do not hesitate to contact us. Our team is here to support you every step of the way.\r\n"
+				+ "\r\n"
+				+ "Thank you for choosing Elite Rentals. We look forward to assisting you in finding your ideal rental property.\r\n"
+				+ "\r\n"
+				+ "Best regards, ";
+		emailutil.sendWelcomeEmail(rentmail, subject, body);
+		return "sellerdashboard.jsp";
+
 	}
 
 }

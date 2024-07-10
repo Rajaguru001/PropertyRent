@@ -16,13 +16,15 @@ import com.chainsys.propertyrentlease.mapper.UserMapper;
 import com.chainsys.propertyrentlease.model.Comment;
 import com.chainsys.propertyrentlease.model.PropertyImage;
 import com.chainsys.propertyrentlease.model.SellerDashBoard;
+import com.chainsys.propertyrentlease.model.SellerDashBoardRequest;
 import com.chainsys.propertyrentlease.model.SellerPropertyForm;
 import com.chainsys.propertyrentlease.model.Users;
 import com.chainsys.propertyrentlease.mapper.PropertyImageMapper;
 import com.chainsys.propertyrentlease.mapper.CommentMapper;
 import com.chainsys.propertyrentlease.mapper.SellerDashBoardMapper;
+import com.chainsys.propertyrentlease.mapper.SellerDashBoardRequestMapper;
 
-@Repository
+@Repository("propertyRentLeaseImpl")
 public class PropertyRentLeaseImpl implements PropertyRentLeaseDAO {
 	private final JdbcTemplate jdbcTemplate;
 
@@ -180,9 +182,21 @@ public class PropertyRentLeaseImpl implements PropertyRentLeaseDAO {
 	}
 
 	@Override
-	public List<SellerDashBoard> sellerdashboard(int buyersid) {
-		 String query = "SELECT * FROM request WHERE owner_id = ?";
-		return jdbcTemplate.query(query, new SellerDashBoardMapper(),buyersid);
+	public List<SellerDashBoardRequest> sellerdashboard(int buyersid) {
+		 String query =  "SELECT pd.property_id, pd.property_type, pd.sqft, pd.furnishing, "
+	               + "pd.available_from, pd.rent, pd.address, pd.posted_on_date, pd.EB_Bill, "
+	               + "pd.owner_id, pd.rent_id, pd.subscription_id, pd.is_approval, "
+	               + "u_owner.user_name AS owner_name, u_owner.email AS owner_email, "
+	               + "u_owner.phonenumber AS owner_phonenumber, "
+	               + "u_renter.user_name AS renter_name, u_renter.email AS renter_email, "
+	               + "u_renter.phonenumber AS renter_phonenumber, "
+	               + "pi.image_id, pi.images "
+	               + "FROM property_details AS pd "
+	               + "JOIN users AS u_owner ON pd.owner_id = u_owner.user_id "
+	               + "LEFT JOIN users AS u_renter ON pd.rent_id = u_renter.user_id "
+	               + "LEFT JOIN property_images AS pi ON pd.property_id = pi.property_id "
+	               + "WHERE pd.owner_id = ?";
+		return jdbcTemplate.query(query, new SellerDashBoardRequestMapper(),buyersid);
 	}
 
 	@Override
@@ -192,6 +206,27 @@ public class PropertyRentLeaseImpl implements PropertyRentLeaseDAO {
 		
 		
 	}
+
+	@Override
+	public void sellermail(int propertyId) {
+		String query= "update request set approval =true  where property_id =?";
+	    jdbcTemplate.update(query, propertyId);
+		
+	}
+
+	@Override
+	public void buyer(int buyerid, int propertyid) {
+		String query = "update  property_details  set rent_id=?  where property_id=?";
+		 jdbcTemplate.update(query,buyerid,propertyid);
+		
+	}
+
 	
+	@Override
+	public List<SellerDashBoard> sellerdashboardrequest(int buyersid) {
+		 String query = "SELECT * FROM request WHERE owner_id = ?";
+		return jdbcTemplate.query(query, new SellerDashBoardMapper(),buyersid);
+	}
+		
 
 }

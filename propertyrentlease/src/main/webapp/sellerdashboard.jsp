@@ -3,12 +3,16 @@
 
 <%@ page import="com.chainsys.propertyrentlease.model.Users"%>
 <%@ page import="com.chainsys.propertyrentlease.model.SellerDashBoard"%>
+<%@ page
+	import="com.chainsys.propertyrentlease.model.SellerDashBoardRequest"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.io.InputStream"%>
 <%@ page import="java.util.Base64"%>
 <%@ page import="org.springframework.web.context.WebApplicationContext"%>
-<%@ page import="org.springframework.web.context.support.WebApplicationContextUtils"%>
-<%@ page import="com.chainsys.propertyrentlease.dao.PropertyRentLeaseImpl" %>
+<%@ page
+	import="org.springframework.web.context.support.WebApplicationContextUtils"%>
+<%@ page
+	import="com.chainsys.propertyrentlease.dao.PropertyRentLeaseImpl"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -59,6 +63,11 @@ nav a:hover {
 	padding: 20px;
 }
 
+.owner, .buyer {
+	display: flex;
+	flex-direction: column;
+}
+
 footer {
 	background-color: #333;
 	color: #fff;
@@ -68,11 +77,63 @@ footer {
 	width: 100%;
 	bottom: 0;
 }
+
+button.approve-button {
+	background-color: #FF204E;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+button.approved {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	padding: 8px 16px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	cursor: default;
+}
+.owner {
+	flex: 1;
+	padding: 10px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	width:50%;
+}
+
+.buyer {
+	flex: 1;
+	padding: 10px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	width:100%;
+}
+.profile-img {
+	width: 100px; 
+	height: 100px;
+	border-radius: 50%;
+	margin-right: 10px;
+	object-fit: cover;
+}
+
 </style>
+
 </head>
 <body>
 	<header>
-		<h1>Seller Dashboard</h1>
+		<h1>Elite Rentals	</h1>
 	</header>
 
 	<nav>
@@ -81,49 +142,64 @@ footer {
 	</nav>
 	<h2>
 		Welcome back,
-		<%= ((Users) session.getAttribute("user")).getUsername() %>!
+		<%=((Users) session.getAttribute("user")).getUsername()%>!
 	</h2>
 	<p>This is your Seller Dashboard.</p>
 
 	<div class="container">
 		<div class="content">
 			<%
-            Users userId=(Users)session.getAttribute("user"); 
-        %>
+			Users userId = (Users) session.getAttribute("user");
+			%>
 
-			<% 
+			<%
 			WebApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 
-        	PropertyRentLeaseImpl propertyLeaseimpl = (PropertyRentLeaseImpl) context.getBean("propertyRentLeaseImpl");
-             
-        List<SellerDashBoard> sellerdashboard = propertyLeaseimpl.sellerdashboard(userId.getUserid());
-        if (sellerdashboard != null && !sellerdashboard.isEmpty()) {
-            for (SellerDashBoard requests : sellerdashboard) {
-        %>
-			<p>
-				Owner ID:
-				<%= requests.getOwnerid() %></p>
-			<p>
-				Property ID:
-				<%= requests.getPropertyid() %></p>
-			<p>
-				Rent ID:
-				<%= requests.getRentid() %></p>
-			<form action="PropertyRentSellerDashBoard" method="post">
-				<input type="hidden" name="propertyId"
-					value="<%= requests.getPropertyid() %>"> <input
-					type="hidden" name="rentid" value="<%=requests.getRentid() %>">
-				<button type="submit">Approval</button>
+			PropertyRentLeaseImpl propertyLeaseimpl = (PropertyRentLeaseImpl) context.getBean("propertyRentLeaseImpl");
+
+			List<SellerDashBoardRequest> sellerdashboard = propertyLeaseimpl.sellerdashboard(userId.getUserid());
+			if (sellerdashboard != null && !sellerdashboard.isEmpty()) {
+				for (SellerDashBoardRequest requests : sellerdashboard) {
+			%>
+
+			<div class="buyer">
+			<img src="images/man.png" alt="Buyer Profile" class="profile-img" >
+		<%-- 	<p>
+					BuyerName:
+					<%=requests.getOwnerId()%></p>
+					<p>
+					BuyerName:
+					<%=requests.getRentId()%></p> --%>
+				<p>
+					BuyerName:
+					<%=requests.getRenterName()%></p>
+				<p>
+					BuyerEmail:
+					<%=requests.getRenterEmail()%></p>
+				<p>
+					BuyerPhonenumber:
+					<%=requests.getRenterPhoneNumber()%></p>
+					<form action="/sellermail" method="post">
+				<input type="text" name="propertyId"
+					value="<%=requests.getPropertyId()%>"> <input type="text"
+					name="rentid" value="<%=requests.getRentId()%>">
+				<button type="submit" class="approve-button">Approval</button>
 			</form>
+					
+
+			</div>
+			
 
 
 			<hr>
-			<% 
-            }
-        } else {
-        %>
+			<%
+			}
+			} else {
+			%>
 			<p>No data available</p>
-			<% } %>
+			<%
+			}
+			%>
 
 
 
@@ -134,5 +210,7 @@ footer {
 	</div>
 
 	<footer> &copy; 2024 PropertyRent. All rights reserved. </footer>
+
+	
 </body>
 </html>

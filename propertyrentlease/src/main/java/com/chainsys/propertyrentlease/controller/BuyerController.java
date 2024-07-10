@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.chainsys.propertyrentlease.dao.PropertyRentLeaseImpl;
 import com.chainsys.propertyrentlease.model.Comment;
 import com.chainsys.propertyrentlease.model.SellerDashBoard;
+import com.chainsys.propertyrentlease.model.SellerDashBoardRequest;
 import com.chainsys.propertyrentlease.model.SellerPropertyForm;
 import com.chainsys.propertyrentlease.util.EmailUtility;
 
@@ -59,14 +60,14 @@ public class BuyerController {
 				+ "If you have any further questions or need assistance, feel free to contact us. We are here to ensure a smooth and secure rental process for you.\r\n"
 				+ "\r\n" + "Best regards,";
 		emailutil.sendWelcomeEmail(ownermailid, subject1, body1);
-		List<SellerDashBoard> sellerdashboardrequest = null;
+		List<SellerDashBoardRequest> sellerdashboardrequest = null;
 
 		SellerDashBoard sellerdashboard = new SellerDashBoard();
 		sellerdashboard.setRentid(userid);
 		sellerdashboard.setOwnerid(sellerid);
 		sellerdashboard.setPropertyid(propertyid);
 		propertyimpl.buyerrequest(userid, sellerid, propertyid);
-		
+		System.out.println("the sellerdashboard"+sellerdashboard.toString());
 		sellerdashboardrequest =propertyimpl.sellerdashboard(sellerid);
 		model.addAttribute("sellerdashboard"+sellerdashboardrequest);
 
