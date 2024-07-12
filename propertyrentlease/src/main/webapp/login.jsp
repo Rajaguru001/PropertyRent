@@ -135,14 +135,27 @@ footer {
 	font-weight: bold;
 	color: white;
 }
+
+.alert {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+
+.alert-danger {
+	color: #721c24;
+	background-color: #f8d7da;
+	border-color: #f5c6cb;
+}
 </style>
-   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script>
-        // Retrieve alert message from JSP attribute
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+       
         var alertMessage = "${param.alert}";
 
         if (alertMessage) {
-            // Display sweet alert message using SweetAlert library
+          
             swal({
                 title: "Alert",
                 text: alertMessage,
@@ -163,12 +176,15 @@ footer {
 
 	<div class="container">
 		<h1>Login Page</h1>
+		<% if (request.getAttribute("error") != null) { %>
+		<div class="alert alert-danger"><%= request.getAttribute("error") %></div>
+		<% } %>
 		<form action="/login" method="post">
 			<input type="hidden" name="action" value="Login"> <input
 				type="hidden" name="Login">
 			<hr>
 			<table>
-			
+
 				<tr>
 					<th>login page</th>
 				</tr>
@@ -180,15 +196,21 @@ footer {
 				<tr>
 					<td>Password:</td>
 					<td><input type="password" name="password"
-						placeholder="Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#&]).{5,}" required></td>
+						placeholder="Password"
+						pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#&]).{5,}" required></td>
 				</tr>
 			</table>
 			<input type="submit" value="Login">
 			<hr>
-			<a href="http://localhost:8080/PropertyRentLease/RegisterPage.jsp"
-				class="signup-link">Signup</a>
+			<p>
+				Don't have an account?<a href="register.jsp" class="signup-link"
+					value="signup">Signup</a>
+			</p>
 
 		</form>
+		<div class="error"
+			style="display: ${not empty errorMessage ? 'block' : 'none'};">
+			${errorMessage}</div>
 	</div>
 
 	<footer>

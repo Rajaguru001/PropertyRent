@@ -12,7 +12,7 @@ import com.chainsys.propertyrentlease.dao.PropertyRentLeaseImpl;
 import com.chainsys.propertyrentlease.model.Users;
 import com.chainsys.propertyrentlease.validation.PropertyRentLeaseValidation;
 
-
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -24,7 +24,7 @@ public class UserController {
 	public UserController(PropertyRentLeaseImpl propertyimpl) {
 		this.propertyimpl = propertyimpl;
 	}
-	
+
 	@Autowired
 	PropertyRentLeaseValidation propertyvalidation;
 
@@ -41,30 +41,30 @@ public class UserController {
 	@PostMapping("/registeruser")
 	public String register(@RequestParam("name") String name, @RequestParam("password") String password,
 			@RequestParam("email") String email, @RequestParam("phonenumber") String phonenumber,
-			RedirectAttributes redirectAttributes,Model model) {
+			RedirectAttributes redirectAttributes, Model model) {
 		Users users = new Users();
-		if(!propertyvalidation.validateUsername(name)) {
-			model.addAttribute("error", "Invalid format");
-            return "register.jsp";
-			
+		if (!propertyvalidation.validateUsername(name)) {
+			model.addAttribute("error", "Invalid username");
+			return "register.jsp";
+
 		}
-		if(propertyvalidation.passwordsMatch(password)) {
-			model.addAttribute("error", "Invalid format");
+		if (!propertyvalidation.passwordsMatch(password)) {
+			model.addAttribute("error", "Invalid password");
 			return "register.jsp";
 		}
-		if(propertyvalidation.validateEmail(email)) {
-			model.addAttribute("error", "Invalid format");
+		if (!propertyvalidation.validateEmail(email)) {
+			model.addAttribute("error", "Invalid email");
 			return "register.jsp";
 		}
-		if(propertyvalidation.validateMobile(phonenumber)) {
-			model.addAttribute("error", "Invalid format");
+		if (!propertyvalidation.validateMobile(phonenumber)) {
+			model.addAttribute("error", "Invalid phonenumber");
 			return "register.jsp";
 		}
 		users.setUsername(name);
 		users.setPassword(password);
 		users.setEmail(email);
 		users.setPhonenumber(phonenumber);
-		
+
 		if (propertyimpl.insert(users)) {
 			return "login.jsp";
 		} else {
@@ -75,53 +75,50 @@ public class UserController {
 
 	@PostMapping("/login")
 	public String login(HttpSession session, @RequestParam("email") String email,
-			@RequestParam("password") String password, RedirectAttributes redirectAttributes) {
+			@RequestParam("password") String password, RedirectAttributes redirectAttributes, Model model) {
 		Users user = new Users();
+		if (!propertyvalidation.validateEmail(email)) {
+			model.addAttribute("error", "Invalid email");
+			return "register.jsp";
+		}
+		if (!propertyvalidation.passwordsMatch(password)) {
+			model.addAttribute("error", "Invalid password");
+			return "register.jsp";
+		}
 		user.setEmail(email);
 		user.setPassword(password);
-		if(propertyimpl.insertLogin(user)) {
+		if (propertyimpl.insertLogin(user)) {
+
+			Users users = propertyimpl.getUserIdByEmail(user);
+			if (users == null) {
+				redirectAttributes.addFlashAttribute("error", "Invalid email or password.");
+				return "register.jsp";
+			}
+
+			session.setAttribute("user", users);
 			
-		Users users = propertyimpl.getUserIdByEmail(user);
-		if (users == null) {
-			redirectAttributes.addFlashAttribute("error", "Invalid email or password.");
-			return "register.jsp";
+			Users adminLoginCheck = propertyimpl.adminlogincheck(users);
+			if (adminLoginCheck != null) {
+				if (user.getEmail().matches("\\b[A-Za-z0-9._%+-]+@eliterental\\.com\\b")
+						&& user.getPassword().matches("Raju@123")) {
+					return "admindashboard.jsp";
+				} else {
+					return "contentpage.jsp";
+				}
+			}
+
+			/*
+			 * Users adminLoginCheck = propertyimpl.adminlogincheck(users);
+			 * 
+			 * if (adminLoginCheck != null) { if
+			 * (user.getEmail().matches("\\b[A-Za-z0-9._%+-]+@eliterental\\.com\\b") &&
+			 * user.getPassword().matches("Raju@123")) { return "admindashboard.jsp"; } else
+			 * { return "contentpage.jsp"; } } else { return "register.jsp"; }
+			 */
+
 		}
-
-		session.setAttribute("user", users);
-		Users adminLoginCheck = propertyimpl.adminlogincheck(users);
-		if (adminLoginCheck != null) {
-			if (user.getEmail().matches("\\b[A-Za-z0-9._%+-]+@eliterental\\.com\\b")
-					&& user.getPassword().matches("Raju@123")) {
-				return "admindashboard.jsp";
-			} 
-			else 
-			{
-				return "contentpage.jsp";
-			}
-		} 
-			
-		
-		
-
-		/*Users adminLoginCheck = propertyimpl.adminlogincheck(users);
-
-		if (adminLoginCheck != null) {
-			if (user.getEmail().matches("\\b[A-Za-z0-9._%+-]+@eliterental\\.com\\b")
-					&& user.getPassword().matches("Raju@123")) {
-				return "admindashboard.jsp";
-			} else {
-				return "contentpage.jsp";
-			}
-		} else {
-			return "register.jsp";
-		}*/
-
-	}
 		return "register.jsp";
-		}
-
-
-	
+	}
 
 	@PostMapping("/postproperty")
 	public String postProperty(HttpSession session, RedirectAttributes redirectAttributes) {
@@ -144,5 +141,14 @@ public class UserController {
 			return "login.jsp";
 		}
 	}
+	@PostMapping("/logout")
+    public String userLogout(HttpSession session, HttpServletRequest request) {
+        session = request.getSession(false);
+        if(session != null) {
+            session.invalidate();
+        }
+        
+        return "contentpage.jsp";
+    }
 
 }

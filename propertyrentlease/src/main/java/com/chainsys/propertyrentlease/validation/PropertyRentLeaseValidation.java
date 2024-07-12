@@ -3,9 +3,10 @@ package com.chainsys.propertyrentlease.validation;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-@Component
+@Configuration
 public class PropertyRentLeaseValidation {
 	
 	
@@ -23,7 +24,7 @@ public class PropertyRentLeaseValidation {
 	    public boolean validateMobile(String mobile) {
 	       
 	    	
-	        String regex = "^\\d{10}$";
+	        String regex = "^[6-9]\\d{9}$";
 	        Pattern pattern = Pattern.compile(regex);
 	        Matcher matcher = pattern.matcher(mobile);
 	        return matcher.matches();
@@ -31,14 +32,14 @@ public class PropertyRentLeaseValidation {
 
 	    public boolean validateEmail(String email) {
 	       
-	        String regex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+	        String regex = "^[a-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[a-zA-Z]{2,}$";
 	        Pattern pattern = Pattern.compile(regex);
 	        Matcher matcher = pattern.matcher(email);
 	        return matcher.matches();
 	    }
 
 	    public boolean passwordsMatch(String confirmPassword) {
-	        String regex = "(?=.[a-zA-Z])(?=.\\d)(?=.*[@#$%^&+=!]).{8,}";
+	        String regex ="(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#&$]).{5,}";
 	        Pattern pattern = Pattern.compile(regex);
 	        Matcher matcher = pattern.matcher(confirmPassword);
 	        return matcher.matches();
