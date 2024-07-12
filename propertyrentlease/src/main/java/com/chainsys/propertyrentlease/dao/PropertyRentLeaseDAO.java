@@ -17,6 +17,8 @@ public interface PropertyRentLeaseDAO {
 	public boolean insert(Users users);
 
 	public Users getUserIdByEmail(Users User);
+	
+	public boolean insertLogin(Users user);
 
 	public Users adminlogincheck(Users user);
 

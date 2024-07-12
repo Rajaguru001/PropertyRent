@@ -136,7 +136,7 @@
     <h2>Hello Admin</h2>
         <p>Home</p>
        <a href="contentpage.jsp"> <p>logout</p></a>
-        <a href="buyerpropertyview.jsp">Approved Property</a>
+        <a href="/buyerview">Approved Property</a>
     </div>
     <div class="content">
         <h2>Waiting for your Approval!</h2>

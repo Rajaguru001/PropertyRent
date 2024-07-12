@@ -149,10 +149,11 @@
 </div>
 
 <div class="container">
-    <h1>Sign Up</h1>
+   
    <form action="/registeruser" method="post">
         <hr>
         <table>
+         <th>Sign Up</th>
        
             <tr>
             

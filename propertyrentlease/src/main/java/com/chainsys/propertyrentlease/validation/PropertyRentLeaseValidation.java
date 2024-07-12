@@ -5,9 +5,10 @@ import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Component;
 
-public class ProductRentLeaseValidation {
-	@Component
-	public class UserValidator {
+@Component
+public class PropertyRentLeaseValidation {
+	
+	
 
 	    
 
@@ -42,6 +43,6 @@ public class ProductRentLeaseValidation {
 	        Matcher matcher = pattern.matcher(confirmPassword);
 	        return matcher.matches();
 	    }
-	}
+	
 
 }

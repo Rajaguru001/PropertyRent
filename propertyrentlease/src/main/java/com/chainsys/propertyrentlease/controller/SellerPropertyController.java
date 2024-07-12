@@ -38,9 +38,7 @@ public class SellerPropertyController {
 			@RequestParam("EB_Bill") MultipartFile ebBill,
 			@RequestParam("property_images") MultipartFile[] propertyImages, @RequestParam("id") int userId,
 			RedirectAttributes redirectAttributes) {
-
-		SellerPropertyForm sellerProperty = new SellerPropertyForm();
-		PropertyImage propertyimage = new PropertyImage();
+		
 		Date availableFrom = parseDate(availableFromStr);
 		Date postedOnDate = parseDate(postedDateStr);
 
@@ -102,7 +100,6 @@ public class SellerPropertyController {
 	public String sellermail(@RequestParam("propertyId") int propertyid, @RequestParam("rentid") int rentid) {
 		propertyimpl.sellermail(propertyid);
 		String rentmail = propertyimpl.owneremailid(rentid);
-		System.out.println("the email is"+rentmail);
 		String subject=" Important Notice: Regarding Your Recent Inquiry on Elite Rentals";
 		String body="Thank you for your interest in Elite Rentals. We appreciate your inquiry and are delighted to assist you in finding the perfect rental solution. However, we want to ensure that your experience is safe and secure.\r\n"
 				+ "\r\n"

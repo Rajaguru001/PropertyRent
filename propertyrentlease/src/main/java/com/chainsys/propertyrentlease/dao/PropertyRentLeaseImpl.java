@@ -61,6 +61,21 @@ public class PropertyRentLeaseImpl implements PropertyRentLeaseDAO {
 			return null;
 		}
 	}
+	
+	public boolean insertLogin(Users user) {
+
+        String register="SELECT count(*)FROM users WHERE email=? && password=?";
+        Object[]email= {user.getEmail(),user.getPassword()};
+        int count= jdbcTemplate.queryForObject(register,Integer.class,email);
+        if(count==0)
+        {
+        
+        return false;
+        }
+            
+        return true;
+        
+    }
 
 	@Override
 	public Users adminlogincheck(Users users) {

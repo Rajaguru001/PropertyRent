@@ -250,7 +250,7 @@
         </div>
 
         <div class="login-signup">
-            <a href="login.jsp">Login</a> <a href="register.jsp">Signup</a>
+            <a href="login.jsp">Login/Signup</a>
         </div>
 
        <div class="post-property-button"> 
@@ -265,7 +265,7 @@
         <div class="bold-text">
             Welcome back! Let's continue your search
         </div>
-        <div class="search-container">
+       <!--  <div class="search-container">
             <form action="#" method="GET">
                 <select name="location" id="location" required>
                     <option value="">Select Location</option>
@@ -287,7 +287,7 @@
                     <i class="fas fa-search"></i>
                 </button>
             </form>
-        </div>
+        </div> -->
     </div>
     
 </body>

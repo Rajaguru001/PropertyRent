@@ -183,8 +183,17 @@
             <button type="submit">Submit</button>
         </form>
     </div>
-    <script>
-      
+   <script>
+        // JavaScript to set the default value of Posted on Date to today's date
+        document.addEventListener("DOMContentLoaded", function() {
+            var currentDate = new Date();
+            var year = currentDate.getFullYear();
+            var month = (currentDate.getMonth() + 1).toString().padStart(2, '0'); // Adding 1 because getMonth() returns zero-based index
+            var day = currentDate.getDate().toString().padStart(2, '0');
+            var today = year + '-' + month + '-' + day;
+            
+            document.getElementById('posted_on_date').value = today;
+        });
     </script>
 </body>
 </html>

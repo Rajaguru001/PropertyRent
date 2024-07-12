@@ -32,9 +32,7 @@ public class BuyerController {
 		Comment comments = new Comment();
 		comments.setUserid(userId);
 		comments.setCommentsection(comment);
-		comments.setPropertyid(propertyId);
-		System.out.println("the userid"+comments.getUserid());
-		
+		comments.setPropertyid(propertyId);		
 
 		try {
 
@@ -46,7 +44,7 @@ public class BuyerController {
 			model.addAttribute("errorMessage", "Failed to save comment. Please try again.");
 		}
 
-		return "buyerpropertyview.jsp";
+		return "redirect:/buyerview";
 	}
 
 	@PostMapping("/Propertybuyer")
@@ -68,7 +66,6 @@ public class BuyerController {
 		sellerdashboard.setOwnerid(sellerid);
 		sellerdashboard.setPropertyid(propertyid);
 		propertyimpl.buyerrequest(sellerid, userid,  propertyid);
-		System.out.println("the sellerdashboard"+sellerdashboard.toString());
 		sellerdashboardrequest =propertyimpl.sellerdashboard(sellerid);
 		model.addAttribute("sellerdashboard"+sellerdashboardrequest);
 

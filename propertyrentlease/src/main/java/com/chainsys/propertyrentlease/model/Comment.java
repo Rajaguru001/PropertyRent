@@ -6,9 +6,7 @@ public class Comment {
 	private String usercomment;
 	private String commentsection;
 	private int propertyid;
-	public Comment(){
- 
- }
+	
 	public int getUserid() {
 		return userid;
 	}
