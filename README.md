@@ -6,7 +6,7 @@
 
 <hr>
 <bold>About:</bold><br>
-  Absence Tracking System keeps tracking of employee working hours and used to maintain login records to provide salary depending on employee log records automaticaly at the end of every month. Employee can apply leave and time permission to their respective manager .
+PropertyRentLease its a platform use to post their properties for Rent Seller need to Fill the Form for Post their property Seller Needs to Wait for Admin Approval when Once Admin give Approval its show in the Buyerview and when buyer wants to buy the property he/she in the buyerview 
 <hr>
 
 <span style="color:blue">**Modules:-**</span><br>
