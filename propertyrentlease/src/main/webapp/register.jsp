@@ -235,7 +235,7 @@ footer {
 				<tr>
 					<td>UserName</td>
 					<td><input type="text" name="name" placeholder="UserName"
-						required>
+						>
 						<div id="username-error" class="error-message"></div></td>
 				</tr>
 				<tr>

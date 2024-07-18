@@ -10,6 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.chainsys.propertyrentlease.dao.PropertyRentLeaseImpl;
 import com.chainsys.propertyrentlease.model.Users;
+import com.chainsys.propertyrentlease.validation.PropertyRentLeaseException;
 import com.chainsys.propertyrentlease.validation.PropertyRentLeaseValidation;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,11 +42,22 @@ public class UserController {
 	@PostMapping("/registeruser")
 	public String register(@RequestParam("name") String name, @RequestParam("password") String password,
 			@RequestParam("email") String email, @RequestParam("phonenumber") String phonenumber,
-			RedirectAttributes redirectAttributes, Model model) {
+			RedirectAttributes redirectAttributes, Model model) throws PropertyRentLeaseException {
 		Users users = new Users();
-		if (!propertyvalidation.validateUsername(name)) {
-			model.addAttribute("error", "Invalid username");
-			return "register.jsp";
+		while (true) {
+			try {
+				if (!propertyvalidation.validateUsername(name)) {
+					model.addAttribute("error", "Invalid username");
+			      return "register.jsp";
+
+				}
+			} catch (PropertyRentLeaseException ex) {
+				System.out.println("invalid username");
+				System.out.println("the expcetion is:" + ex);
+				return "register.jsp";
+				
+			}
+             break;
 
 		}
 		if (!propertyvalidation.passwordsMatch(password)) {
@@ -96,7 +108,7 @@ public class UserController {
 			}
 
 			session.setAttribute("user", users);
-			
+
 			Users adminLoginCheck = propertyimpl.adminlogincheck(users);
 			if (adminLoginCheck != null) {
 				if (user.getEmail().matches("\\b[A-Za-z0-9._%+-]+@eliterental\\.com\\b")
@@ -141,14 +153,15 @@ public class UserController {
 			return "login.jsp";
 		}
 	}
+
 	@PostMapping("/logout")
-    public String userLogout(HttpSession session, HttpServletRequest request) {
-        session = request.getSession(false);
-        if(session != null) {
-            session.invalidate();
-        }
-        
-        return "contentpage.jsp";
-    }
+	public String userLogout(HttpSession session, HttpServletRequest request) {
+		session = request.getSession(false);
+		if (session != null) {
+			session.invalidate();
+		}
+
+		return "contentpage.jsp";
+	}
 
 }
