@@ -101,7 +101,7 @@ public class UserController {
 		user.setPassword(password);
 		if (propertyimpl.insertLogin(user)) {
 
-			Users users = propertyimpl.getUserIdByEmail(user);
+			Users     users = propertyimpl.getUserIdByEmail(user);
 			if (users == null) {
 				redirectAttributes.addFlashAttribute("error", "Invalid email or password.");
 				return "register.jsp";
